@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'main', url: 'git@github.com:bkrraj/ncplspringboot.git'
+        git branch: 'main', url: 'https://github.com:bkrraj/ncplspringboot.git'
       }
     }
  stage('Pull Changes') {
