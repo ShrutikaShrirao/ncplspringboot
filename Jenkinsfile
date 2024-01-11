@@ -1,11 +1,6 @@
 def registry = 'https://bkrraj.jfrog.io'
 pipeline {
   agent any
-  environment {
-        // Define environment variables if needed
-        SONAR_TOKEN = credentials('8f1d70d9-25eb-4975-b1df-d7b630fb1914')
-    }
-
   stages {
     stage('Checkout') {
       steps {
@@ -38,6 +33,7 @@ stage ('Build') {
 stage('Sonar Analysis') {
       environment {
         scannerHome = tool 'SonarQubeScanner'
+        SONAR_TOKEN = credentials('8f1d70d9-25eb-4975-b1df-d7b630fb1914')
       }
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
