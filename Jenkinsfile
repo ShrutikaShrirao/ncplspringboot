@@ -42,7 +42,7 @@ stage('Sonar Analysis') {
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
                 withSonarQubeEnv('SonarQubeScanner') {
-                   sh "${tool 'demomvn'}/bin/mvn sonar:sonar -Dsonar.login=${env.Sonarcloudtoken}"
+                   sh "${tool 'demomvn'}/bin/mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
                 }       
          }
       }
