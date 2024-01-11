@@ -32,16 +32,16 @@ stage ('Build') {
 
 
 stage('Sonar Analysis') {
-      environment {
-        scannerHome = tool 'SonarQubeScanner'
+      steps{
+         script{
+           scannerHome = tool 'SonarQubeScanner'
       }
-      steps {
         echo '<--------------- Sonar Analysis started  --------------->'
-                withSonarQubeEnv('SonarQubeScanner') {
+        withSonarQubeEnv('SonarQubeScanner') {
                 sh "${scannerHome}/bin/sonar-scanner"
                 }       
-         }
       }
+}
 stage('Quality Gate') {
       steps {
         script {
