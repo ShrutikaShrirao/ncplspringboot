@@ -33,15 +33,15 @@ stage ('Build') {
 stage('Sonar Analysis') {
       environment {
         scannerHome = tool 'SonarQubeScanner'
-        SONAR_TOKEN = credentials('8f1d70d9-25eb-4975-b1df-d7b630fb1914')
       }
       steps {
         echo '<--------------- Sonar Analysis started  --------------->'
                 withSonarQubeEnv('SonarQubeScanner') {
-                   sh "${tool 'demomvn'}/bin/mvn sonar:sonar -Dsonar.login=${env.SONAR_TOKEN}"
+                sh "${scannerHome}/bin/sonar-scanner"
                 }       
          }
       }
+    
 stage('Quality Gate') {
       steps {
         script {
