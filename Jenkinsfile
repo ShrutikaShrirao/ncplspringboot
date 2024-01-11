@@ -30,18 +30,17 @@ stage ('Build') {
       }
     }
 
-
 stage('Sonar Analysis') {
-      steps{
-         script{
-           scannerHome = tool 'SonarQubeScanner'
+      environment {
+        scannerHome = tool 'SonarQubeScanner'
       }
+      steps {
         echo '<--------------- Sonar Analysis started  --------------->'
-        withSonarQubeEnv(credentialsId: 'Sonarcloudtoken') { 
-                        sh "mvn sonar:sonar"
-        }
+                withSonarQubeEnv('SonarQubeScanner') {
+                sh "${scannerHome}/bin/sonar-scanner"
+                }       
+         }
       }
-}
 stage('Quality Gate') {
       steps {
         script {
