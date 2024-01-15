@@ -81,14 +81,20 @@ stage("Jar Publish") {
                 }
             }   
         }    
-  stage('Build Docker Image') {
+
+    stages {
+        stage('Build Docker Image') {
             steps {
                 script {
+                    // Add the following line to add ec2-user to the docker group
+                    sh 'sudo usermod -a -G docker ec2-user'
+
                     // Build the Docker image
                     sh 'docker build -t myrepo .'
                 }
             }
-    }
+        }
+
 
     // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
