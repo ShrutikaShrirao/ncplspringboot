@@ -66,7 +66,7 @@ stage("Jar Publish") {
                               "files": [
                                 {
                                   "pattern": "target/springbootApp.jar",
-                                  "target": "maven-libs-release/{1}",
+                                  "target": "maven-libs-snapshot",
                                   "flat": "false",
                                   "props" : "${properties}",
                                   "exclusions": [ "*.sha1", "*.md5"]
