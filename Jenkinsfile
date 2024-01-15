@@ -87,7 +87,7 @@ stage("Jar Publish") {
                 script {
                     // Build the Docker image
                   
-                    sh 'sudo -u jenkins docker build -t myrepo .'
+                    sh 'docker build -t myrepo .'
                 }
             }
     }
