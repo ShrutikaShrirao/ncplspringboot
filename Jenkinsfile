@@ -93,19 +93,21 @@ stage("Jar Publish") {
     }
 
 
-    // Uploading Docker images into AWS ECR
+   // Uploading Docker images into AWS ECR
 stage('Pushing to ECR') {
     steps {
         script {
-            // Configure AWS credentials
-            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: '025692962952', accessKeyVariable: 'AKIAQL63LQCEHTQCAVNV', secretKeyVariable: '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']]) {
-                // Docker login to ECR using credential helper
-                sh 'docker login -u AWS -p "AWS:${hka+MDB5k2nDdOty9MzDIesnMrvx03Rgl4o3wzvL}" https://025692962952.dkr.ecr.us-east-1.amazonaws.com'
-                
-                // Tag and push Docker image
-                sh 'docker tag myrepo:latest 025692962952.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
-                sh 'docker push 025692962952.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
-            }
+            // Get ECR login password
+            def ecrLoginCommand = 'aws ecr get-login-password --region us-east-1'
+            def ecrLoginPassword = sh(script: ecrLoginCommand, returnStdout: true).trim()
+
+            // Docker login to ECR
+            def dockerLoginCommand = "docker login --username AWS --password-stdin 025692962952.dkr.ecr.us-east-1.amazonaws.com"
+            sh "echo ${ecrLoginPassword} | ${dockerLoginCommand}"
+
+            // Tag and push Docker image
+            sh 'docker tag myrepo:latest 025692962952.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
+            sh 'docker push 025692962952.dkr.ecr.us-east-1.amazonaws.com/myrepo:latest'
         }
     }
 }
