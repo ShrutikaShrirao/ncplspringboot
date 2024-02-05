@@ -105,18 +105,18 @@ stage("Jar Publish") {
       }
 
 
-//    stage('Deploy to EKS') {
-//             steps {
-//                 script {
-//                     // Authenticate with the EKS cluster (ensure AWS credentials are configured)
-//                     sh 'aws eks --region us-east-2 update-kubeconfig --name my-eks-cluster'
+    stage('Deploy to EKS') {
+             steps {
+                 script {
+                     // Authenticate with the EKS cluster (ensure AWS credentials are configured)
+                     sh 'aws eks --region us-east-2 update-kubeconfig --name my-eks-cluster'
                     
-//                     // Apply Kubernetes manifest files to deploy your application
-//                      // sh "kubectl delete -f eks-deploy-k8s.yaml"
-//                       sh "kubectl apply -f eks-deploy-k8s.yaml"
-//                 }
-//             }
-//         }
+                     // Apply Kubernetes manifest files to deploy your application
+                      // sh "kubectl delete -f eks-deploy-k8s.yaml"
+                       sh "kubectl apply -f eks-deploy-k8s.yaml"
+                 }
+             }
+         }
 
   }
 }
